@@ -4,6 +4,7 @@ import { getRecipe } from "../lib/actions";
 import Loader from "../components/loader";
 import ErrorComponent from "../components/error";
 import RelatedRecipes from "../components/related-recipes";
+import { urlFor } from "../lib/utils";
 
 export default function Recipe() {
   const { id } = useParams();
@@ -22,7 +23,9 @@ export default function Recipe() {
       <div className="w-8/12 flex flex-col gap-5">
         <p className="text-4xl font-[600]">{data.title}</p>
         <img
-          src={data.image}
+          src={
+            data.image.includes("https") ? data.image : urlFor(data.image).url()
+          }
           alt={`image of ${data.image}`}
           className="w-full h-[500px] rounded-lg object-cover"
         />

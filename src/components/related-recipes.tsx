@@ -3,6 +3,7 @@ import { getRecipesByCategory } from "../lib/actions";
 import Error from "./error";
 import Loader from "./loader";
 import { Link } from "react-router-dom";
+import { urlFor } from "../lib/utils";
 
 export default function RelatedRecipes({ category }: { category: string }) {
   const { data, error, isPending } = useQuery({
@@ -19,7 +20,7 @@ export default function RelatedRecipes({ category }: { category: string }) {
         <Link to={`/recipes/${i.id}`} key={i.id} className="w-full">
           <div className="w-full h-[250px] relative rounded-lg overflow-hidden group">
             <img
-              src={i.image}
+              src={i.image.includes("https") ? i.image : urlFor(i.image).url()}
               alt={i.title}
               className="w-full h-full object-cover group-hover:scale-105 duration-[.8s]"
             />
